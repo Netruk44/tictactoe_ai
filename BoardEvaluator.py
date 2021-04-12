@@ -10,7 +10,7 @@ def GetBoardMetrics(board):
   # number of 2-in-a-row that can still be won t2
   # number of rows that can still be won for t1
   # number of rows that can still be won for t2
-  # which team owns the center
+  # which team owns the center (1.0 = cross, -1.0 = circle)
 
   ret = [
     board.getCount(1, threeInARow),
@@ -63,7 +63,13 @@ def winnable(cells, team):
   return all([c == CellState.CS_UNDEFINED or c == team for c in cells])
 
 def centerIsOwnedByTeam(board, team):
-  return 1 if board.getCell(1, 1) == team else -1
+  c = board.getCell(1, 1)
+  if c == CellState.CS_UNDEFINED:
+    return 0.
+  elif c == team:
+    return 1.
+  else:
+    return -1.
 
 # TODO: Rename from 'self' to board, don't use 1-9, etc.
 def getEmptyCellsNearTeamCount(self, team):
