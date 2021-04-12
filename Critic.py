@@ -38,7 +38,7 @@ def generateTrainingExamplesFromGame(moveList):
       expected_score = moveList[i+2][1]
     elif i < len(moveList):
       # We should train towards what actually happened at the end of the game
-      gameWonBy = entireMoveset[-1][0].isWon()
+      gameWonBy = moveList[-1][0].isWon()
       if gameWonBy == CellState.CS_UNDEFINED:
         expected_score = 0.
       elif gameWonBy == CellState.CS_AI:
