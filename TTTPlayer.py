@@ -60,6 +60,12 @@ def PlayGameAgainstSelf(weights):
     nextBoard, otherMoves = MakeMove(board, teamToMove, weights, returnOtherOptions=True)
     nextBoardScore = BoardEvaluator.EvaluateBoard(nextBoard, CellState.CS_AI, weights)
 
+    if teamToMove == CellState.CS_OPPONENT:
+      # Need to change the otherMoves scores. They're scores for the CS_OPPONENT team.
+      # Training assumes that these scores are for the CS_AI team.
+      for i in range(len(otherMoves)):
+        otherMoves[i] = (otherMoves[i][0], BoardEvaluator.EvaluateBoard(otherMoves[i][0], CellState.CS_AI, weights))
+
     board = nextBoard
     boardHistory.append((board, nextBoardScore, otherMoves))
     teamToMove = CellState.CS_OPPONENT if teamToMove == CellState.CS_AI else CellState.CS_AI
