@@ -35,7 +35,6 @@ def PlayGameAgainstRandom(weights):
     if teamToMove == CellState.CS_AI:
       nextBoard, otherMoves = MakeMove(board, teamToMove, weights, returnOtherOptions=True)
     else:
-      emptySpots = board.getEmptyPositions()
       nextBoard = board.copy()
       nextBoard.makeRandomMove(CellState.CS_OPPONENT)
       otherMoves = []
