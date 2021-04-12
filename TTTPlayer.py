@@ -29,18 +29,18 @@ def PlayGameAgainstRandom(weights):
   boardHistory = [(board, BoardEvaluator.EvaluateBoard(board, CellState.CS_AI, weights))]
   isWon = False
   isFull = False
-  teamToMove = CellState.CS_AI
+  teamToMove = random.choice([CellState.CS_AI, CellState.CS_OPPONENT])
 
   while not isWon and not isFull:
     if teamToMove == CellState.CS_AI:
       nextBoard, otherMoves = MakeMove(board, teamToMove, weights, returnOtherOptions=True)
-      nextBoardScore = BoardEvaluator.EvaluateBoard(nextBoard, CellState.CS_AI, weights)
     else:
       emptySpots = board.getEmptyPositions()
       nextBoard = board.copy()
-      nextPlay = random.choice(emptySpots)
-      nextBoard.setCell(nextPlay[0], nextPlay[1], teamToMove)
+      nextBoard.makeRandomMove(CellState.CS_OPPONENT)
+      otherMoves = []
 
+    nextBoardScore = BoardEvaluator.EvaluateBoard(nextBoard, CellState.CS_AI, weights)
     board = nextBoard
     boardHistory.append((board, nextBoardScore, otherMoves))
     teamToMove = CellState.CS_OPPONENT if teamToMove == CellState.CS_AI else CellState.CS_AI
@@ -54,7 +54,7 @@ def PlayGameAgainstSelf(weights):
   boardHistory = [(board, BoardEvaluator.EvaluateBoard(board, CellState.CS_AI, weights))]
   isWon = False
   isFull = False
-  teamToMove = CellState.CS_AI
+  teamToMove = random.choice([CellState.CS_AI, CellState.CS_OPPONENT])
 
   while not isWon and not isFull:
     nextBoard, otherMoves = MakeMove(board, teamToMove, weights, returnOtherOptions=True)

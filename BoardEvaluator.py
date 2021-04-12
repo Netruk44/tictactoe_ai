@@ -14,7 +14,7 @@ def GetBoardMetrics(board):
 
   ret = [
     board.getCount(1, threeInARow),
-    board.getCount(2, threeInARow), # This seems like a bad parameter, it never gets updated
+    board.getCount(2, threeInARow),
     board.getCount(1, twoInARow),
     board.getCount(2, twoInARow),
     board.getCount(1, winnable),
