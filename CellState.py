@@ -1,0 +1,9 @@
+CS_UNDEFINED = CS_UNOWNED = 0 # Blank spot
+CS_CROSS = CS_AI = 1         # The AI / 'us'
+CS_CIRCLE = CS_OPPONENT = 2  # The opponent
+
+VALID_CELLSTATES = [
+  CS_UNDEFINED,
+  CS_CROSS,
+  CS_CIRCLE
+]
